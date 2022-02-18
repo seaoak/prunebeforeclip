@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<title>PruneBeforeClip</title>
+<link rel="stylesheet" type="text/css" href="./styles_main.css" />
+</head><body id="PruneBeforeClip">
+
+<div id="container">
+
+<div id="header">
+<h1><a href="./">PruneBeforeClip</a></h1>
+</div><!-- id="header" -->
+
+<div id="content">
+
+<div class="section">
+<pre>
+<a href="./">PruneBeforeClip</a> は、
+　　　　「Evernote などの Web Clipper で本文だけをクリップしたい！」
+というニーズをちょっとだけ満たしてくれるブックマークレットです。
+
+Evernote などで Web ページを保存しておくと、あとで検索できてとっても便利です。
+でも、サイドバーの「過去の記事」リストとか、Google さんのテキスト広告とか、
+本文以外のモノが検索にヒットしてしまって、ちょっと邪魔。
+保存したい（＝あとで検索したい）のは本文だけ、ということがほとんどです。
+
+ところで、先日、<a href="http://www.printwhatyoulike.com/">PrintWhatYouLike</a> というサービスを知りました。
+ブックマークレットとして実行するとページ上の要素を削除したりできるツールです。
+これを使ってサイドバーとか広告とかを削除すれば、本文だけをクリップできます。
+
+    参考）
+        <a href="http://milk200ml.blog73.fc2.com/blog-entry-441.html">Evernote と PrintWhatYouLike の組み合わせが便利すぎる！</a>
+          -- <a href="http://milk200ml.blog73.fc2.com/">マインドマップ１年生 plus ライフハック！</a>
+
+
+しかししかし、メジャーなニュースサイトの記事を毎日のようにクリップしていると、
+いつもいつも同じように広告を削除するのがだんだん面倒になってきました・・・
+
+で、同じ作業を繰り返しているなら自動化しちゃえ、というわけで、
+作ってみたのがこの <a href="./">PruneBeforeClip</a> というブックマークレット。
+
+厳密に言うと「ブックマークレット」ではないのかもしれません。
+ブックマークレットは JavaScript ファイルの読み込みタグを
+ページに埋め込んでいるだけで、実際のページ要素の削除は
+その JavaScript プログラムで行っています。
+
+ちなみに、削除する要素は Seaoak の独断と偏見に基づいて指定されています。
+要望は受け付けますが、実際に反映される保証はありません・・・
+
+どうぞよろしく！
+</pre>
+</div><!-- class="section" -->
+
+<div class="section">
+<h2>使い方</h2>
+<pre>
+次のリンクをブックマークバーなどにドラッグ＆ドロップしてください：
+
+    <a href="javascript:(function(){var elem = document.createElement('script');elem.setAttribute('type', 'text/javascript');elem.setAttribute('charset', 'UTF-8');elem.setAttribute('src', 'https://seaoak.jp/tools/prunebeforeclip/bookmarklet_01_00_00_00.js?nonce='+Math.random());document.body.appendChild(elem);})();">PruneBeforeClip</a>
+
+あとは、クリップしたいページでその項目をクリックすれば本文だけになります。
+その状態で Evernote などの Web Clipper を実行すれば OK.
+
+ちなみに、開発版（Beta バージョン）もあります。
+次のリンクをブックマークして使えば開発版になります。
+
+    <a href="javascript:(function(){var elem = document.createElement('script');elem.setAttribute('type', 'text/javascript');elem.setAttribute('charset', 'UTF-8');elem.setAttribute('src', 'https://seaoak.jp/tools/prunebeforeclip/bookmarklet_01_00_00_99.js?nonce='+Math.random());document.body.appendChild(elem);})();">PruneBeforeClip(dev)</a>
+
+開発版は、対応サイトの数や、対応サイトの HTML の変更への追従は早いですが、
+もしかすると挙動があやしくなることがあるかもしれません。
+開発版がうまく動かないときは通常版ブックマークレットをお使いください。
+
+さらに不安定な Canary バージョンもあります。
+
+    <a href="javascript:(function(){var elem = document.createElement('script');elem.setAttribute('type', 'text/javascript');elem.setAttribute('charset', 'UTF-8');elem.setAttribute('src', 'https://seaoak.jp/tools/prunebeforeclip/bookmarklet_01_01_00_99.js?nonce='+Math.random());document.body.appendChild(elem);})();">PruneBeforeClip(canary)</a>
+
+</pre>
+</div><!-- class="section" -->
+
+<div class="section">
+<h2>ソースコード</h2>
+<pre>
+ブックマークレットで呼び出している JavaScript ファイルは次のものです：
+
+    通常版： <a href="./bookmarklet_01_00_00_00.js">bookmarklet_01_00_00_00.js</a>
+    Beta版： <a href="./bookmarklet_01_00_00_99.js">bookmarklet_01_00_00_99.js</a>
+    Canary： <a href="./bookmarklet_01_01_00_99.js">bookmarklet_01_01_00_99.js</a>
+
+中身が気になるヒトは見てみてください。
+
+ちなみに、<a href="http://seaoak.cocolog-nifty.com/read/2001/01/post-6050.html">MIT ライセンス（X11 ライセンス）</a>なので、改造もご自由にどうぞ。
+</pre>
+</div><!-- class="section" -->
+
+<div class="section">
+<h2>対応サイト</h2>
+<pre>
+
+<table id="siteList">
+    <tr><th>サイト名</th><th>URL 正規化機能</th><th>最終更新日</th><th>補足事項</th></tr>
+    <tr><td><a href="https://www.bloomberg.co.jp">bloomberg</a></td><td>なし</td><td>2018/Mar/20</td><td>&nbsp;</td></tr>
+    <tr><td><a href="https://honto.jp">honto</a></td><td>あり</td><td>2017/May/14</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://wired.jp">WIRED.jp</a></td><td>あり</td><td>2017/Mar/10</td><td>スクロールに追従して自動的に記事を追加する処理が邪魔</td></tr>
+    <tr><td><a href="http://http://www.huffingtonpost.jp/">The Huffington Post Japan</a></td><td>あり</td><td>2017/Mar/03</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://karapaia.com/archives/">カラパイア</a></td><td>なし</td><td>2017/Mar/03</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://japan.cnet.com">CNET Japan</a></td><td>あり</td><td>2011/Nov/15</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.hpcwire.com">HPCwire</a></td><td>あり</td><td>2011/Nov/04</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://zasshi.news.yahoo.co.jp">Yahoo! ニュースの雑誌カテゴリの記事</a></td><td>なし</td><td>2011/Oct/20</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.nikkei.com/news/article/">日本経済新聞のヘッドラインニュース</a></td><td>あり</td><td>2011/Oct/28</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://d.hatena.ne.jp">はてなダイアリー</a></td><td>なし</td><td>2011/Oct/20</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://ipodtouchlab.com">Touch Lab</a></td><td>なし</td><td>2011/Sep/05</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.amazon.co.jp">Amazon.co.jp</a></td><td>あり</td><td>2011/Sep/05</td><td>かなり大幅に加工。</td></tr>
+    <tr><td><a href="http://www.tokyo-np.co.jp">東京新聞</a></td><td>なし</td><td>2011/May/19</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://jp.wsj.com">ウォール・ストリート・ジャーナル 日本版</a></td><td>なし</td><td>2011/May/15</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.jiji.com">時事ドットコム</a></td><td>なし</td><td>2017/Mar/10</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.lifehacker.jp">ライフハッカー［日本版］</a></td><td>なし</td><td>2011/May/28</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.gizmodo.jp">ギズモード・ジャパン GIZMODO</a></td><td>なし</td><td>2011/May/13</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.moongift.jp">MOONGIFT</a></td><td>あり</td><td>2011/Nov/03</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.yomiuri.co.jp">YOMIURI ONLINE （読売新聞）</a></td><td>なし</td><td>2011/May/10</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://gigazine.net">GIGAZINE</a></td><td>なし</td><td>2011/May/09</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://jp.techcrunch.com">TechCrunch JAPAN</a></td><td>なし</td><td>2011/May/07</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://rocketnews24.com">ロケットニュース24</a></td><td>なし</td><td>2011/Aug/17</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.asahi.com">asahi.com</a></td><td>なし</td><td>2011/May/02</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://getnews.jp">ガジェット通信</a></td><td>なし</td><td>2011/Aug/12</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://japanese.engadget.com">engadget 日本語版</a></td><td>なし</td><td>2011/Apr/30</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.4gamer.net">4Gamer.net</a></td><td>なし</td><td>2011/Oct/25</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.atmarkit.co.jp/news/">＠IT のニュース記事</a></td><td>なし</td><td>2011/Apr/29</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.atmarkit.co.jp/fwin2k/">＠IT の解説記事</a></td><td>なし</td><td>2011/Oct/28</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.47news.jp">47NEWS</a></td><td>なし</td><td>2011/Apr/26</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.publickey1.jp">Publickey</a></td><td>なし</td><td>2011/Apr/26</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://bizmakoto.jp/makoto/">Business Media 誠</a></td><td>なし</td><td>2011/May/05</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://blogs.itmedia.co.jp">ITmedia オルタナティブ ブログ</a></td><td>あり</td><td>2011/Oct/28</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://gadget.itmedia.co.jp">ITmedia ガジェット</a></td><td>なし</td><td>2011/May/07</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.itmedia.co.jp/promobile/">ITmedia プロモバ</a></td><td>なし</td><td>2011/Nov/04</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://nlab.itmedia.co.jp">ねとらぼ</a></td><td>なし</td><td>2017/Mar/14</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.itmedia.co.jp/enterprise/">ITmedia エンタープライズ</a></td><td>なし</td><td>2011/Nov/04</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.itmedia.co.jp/news/">ITmedia ニュース</a></td><td>なし</td><td>2011/Nov/04</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://plusd.itmedia.co.jp/pcuser/">ITmedia +D PC USER</a></td><td>なし</td><td>2011/May/05</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://plusd.itmedia.co.jp/mobile/">ITmedia +D Mobile</a></td><td>なし</td><td>2011/Oct/28</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://plusd.itmedia.co.jp/lifestyle/">ITmedia +D LifeStyle</a></td><td>なし</td><td>2011/Nov/04</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://eetimes.jp">EE Times Japan</a></td><td>なし</td><td>2011/Apr/26</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://wiredvision.jp/news/">WIRED VISION のニュース記事</a></td><td>なし</td><td>2011/Apr/25</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.vector.co.jp/magazine/softnews/">Vector の新着ソフトレビュー</a></td><td>なし</td><td>2011/Apr/24</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://www.watch.impress.co.jp">Impress Watch</a></td><td>なし</td><td>2017/Mar/14</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://jp.reuters.com">ロイター</a></td><td>なし</td><td>2017/Mar/16</td><td>&nbsp;</td></tr>
+    <tr><td><a href="http://journal.mycom.co.jp">マイコミジャーナル</a></td><td>なし</td><td>2011/May/08</td><td>&nbsp;</td></tr>
+</table>
+
+追加の要望はどんどんください。できるだけ対応します。
+</pre>
+</div><!-- class="section" -->
+
+<div class="section">
+<h2>連絡先</h2>
+<div id="hogehoge"></div>
+<p>または Twitter で <a href="https://twitter.com/seaoak2003">@seaoak2003</a> まで。
+</p>
+</div><!-- class="section" -->
+
+</div><!-- id="content" -->
+
+<div id="footer">
+<p>Copyright &copy; 2011-2017 <a href="https://seaoak.jp">Seaoak</a>
+</p>
+</div>
+
+</div><!-- id="container" -->
+
+</body></html>

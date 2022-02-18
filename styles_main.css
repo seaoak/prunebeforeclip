@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+* {
+	font-size:				14px;
+	font-family:			monospace;
+	font-weight:			normal;
+	font-style:				normal;
+	color:					#663333;
+
+	margin:					0;
+	padding:				0;
+	border:					none;
+
+	text-decoration:		none;
+}
+
+a,
+a:visited {
+	color:					#3333ff;
+}
+
+a:hover,
+a:active {
+	color:					#ff3333;
+}
+
+pre {
+	line-height:			1.5;
+}
+
+/*==========================================================================*/
+
+html {
+	background-color:		#fffff9;
+}
+
+h1,
+h1 *,
+h1 *:visited {
+	font-size:				48px;
+	font-family:			"Georgia", serif;
+	color:					#666699;
+
+	text-shadow:			0px 1px 1px #111133;
+	-moz-text-shadow:		0px 1px 1px #111133;
+	-webkit-text-shadow:	0px 1px 1px #111133;
+}
+
+h1 *:hover,
+h1 *:active {
+	color:					#ff3333;
+}
+
+h2,
+h2 * {
+	font-size:				28px;
+	font-weight:			bold;
+	font-family:			"Georgia", serif;
+
+	margin-bottom:			14px;
+}
+
+/*==========================================================================*/
+
+#container {
+	margin-left:			100px;
+	width:					700px;
+}
+
+#header {
+	margin-top:				14px;
+	margin-bottom:			14px;
+}
+
+.section {
+	margin-bottom:			42px;
+	padding:				14px 14px 28px 14px;
+
+	background-color:		#fff9f0;
+
+	box-shadow:				1px 1px 2px #aa9999, 0px 0px 1px #bbaaaa;
+	-moz-box-shadow:		1px 1px 2px #aa9999, 0px 0px 1px #bbaaaa;
+	-webkit-box-shadow:		1px 1px 2px #aa9999, 0px 0px 1px #bbaaaa;
+
+	border-radius:			8px;
+	-moz-border-radius:		8px;
+	-webkit-border-radius:	8px;
+}
+
+#hogehoge {
+	margin-bottom:			14px;
+	height:					21px;
+	width:					174px;
+	background-image:		url(./hogehoge.png);
+}
+
+#footer {
+	margin-top:				280px;
+	text-align:				right;
+}
+
+/*==========================================================================*/
+
+#siteList {
+	border-bottom:			1px dotted Silver;
+}
+
+#siteList tr {
+}
+
+#siteList tr:hover {
+	background-color:		rgba(255,204,204,0.2);
+}
+
+#siteList th {
+	font-weight:			bold;
+	border-left:			1px dotted Silver;
+	border-bottom:			1px dotted Silver;
+	padding:				4px;
+}
+
+#siteList td {
+	border-left:			1px dotted Silver;
+	padding:				1px 4px;
+}
+
+/*==========================================================================*/
