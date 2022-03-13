@@ -1,18 +1,33 @@
 @charset "UTF-8";
 
-* {
+/* reset default style */
+address, article, aside, footer, header, h1, h2, h3, h4, h5, h6, main, nav, section,
+blockquote, dd, div, dl, dt, figcaption, figure, hr, li, ol, p, pre, ul,
+a, abbr, b, cite, code, em, kbd, mark, q, s, strong, u,
+caption, col, colgroup, table, tbody, td, tfoot, th, thead, tr,
+body {
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    font-family: inherit;
+    text-decoration: inherit;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html {
 	font-size:				14px;
 	font-family:			monospace;
-	font-weight:			normal;
-	font-style:				normal;
 	color:					#663333;
 
 	margin:					0;
 	padding:				0;
 	border:					none;
-
-	text-decoration:		none;
 }
+
+/*==========================================================================*/
 
 a,
 a:visited {
