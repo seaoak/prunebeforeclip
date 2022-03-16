@@ -739,6 +739,12 @@
 			window.location.href = matching[1] + '/' + matching[5];
 		},
 		function(url, dom) {
+			// normalize: Amazon.co.jp (2022/Mar/17)
+			var matching = url.match(/^(https?:\/\/www\.amazon\.co\.jp)(\/[^?]*)?(\/([0-9A-Z]{8,}))(\/[^?]*)?(\?.*)?$/);
+			if (! matching) return false;
+			window.location.href = matching[1] + '/dp/' + matching[4];
+		},
+		function(url, dom) {
 			// normalize: Amazon.co.jp (2018/Mar/28)
 			var matching = url.match(/^(https?:\/\/www\.amazon\.co\.jp)(\/[^?]*)?(\/gp\/product\/([0-9A-Z]+))(\/[^?]*)?(\?.*)?$/);
 			if (! matching) return false;
