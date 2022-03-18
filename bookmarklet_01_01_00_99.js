@@ -739,9 +739,10 @@
 			window.location.href = matching[1] + '/' + matching[5];
 		},
 		function(url, dom) {
-			// normalize: Amazon.co.jp (2022/Mar/17)
+			// normalize: Amazon.co.jp (2022/Mar/18)
 			var matching = url.match(/^(https?:\/\/www\.amazon\.co\.jp)(\/[^?]*)?(\/([0-9A-Z]{8,}))(\/[^?]*)?(\?.*)?$/);
 			if (! matching) return false;
+			if (! matching[2] && ! matching[5] && ! matching[6]) return false; // already normalized
 			window.location.href = matching[1] + '/dp/' + matching[4];
 		},
 		function(url, dom) {
