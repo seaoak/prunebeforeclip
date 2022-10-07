@@ -1007,6 +1007,102 @@
 			return true;
 		},
 		function(url, dom) {
+			// Amazon.co.jp の新刊リスト (2022/Oct/07)
+			if (! url.match(/^https?:\/\/www\.amazon\.co\.jp\/s\?i=stripbooks[&]/)) return false;
+
+			function queryOnlyOneElementBySelector(dom, selector) {
+				const elems = dom.querySelectorAll(selector);
+				if (elems.length === 0) throw new Error(`queryOnlyOneElementBySelector: not found for "${selector}"`);
+				if (elems.length > 1) throw new Error(`queryOnlyOneElementBySelector: found ${elems.length} elements for "${selector}"`);
+				return elems[0];
+			}
+
+			const unlikeLabels = [ // 文庫とかの「レーベル」
+				// for adults
+				'オトナ文庫',
+				'ぷちぱら文庫',
+				'ぷちぱら文庫creative',
+
+				// for girls
+				'ベリーズ文庫',
+				'ベリーズファンタジー',
+				'マッグガーデン・ノベルズ',
+				'マーマレード文庫',
+				'エタニティ文庫',
+				'エタニティブックス',
+				'メリッサ',
+				'角川ビーンズ文庫',
+				'ビーンズ文庫',
+				'角川ルビー文庫',
+				'レジーナブックス',
+				'ティアラ文庫',
+				'ヴァニラ文庫',
+				'ビーズログ文庫',
+				'ルネッタブックス',
+				'ツギクルブックス',
+				'PASH!ブックス',
+				'アイリスＮＥＯ',
+				'Ｊノベルライト文庫',
+				'レジーナ文庫',
+				'フェアリーキス ピュア',
+				'フェアリーキス ピンク',
+				'ケータイ小説文庫',
+				'Mノベルスf',
+
+				// for 国文学（？）
+				'風々齋文庫',
+			];
+			const preferredStyles = [ // メディアの種類（主に「Audible版」をはじきたい）
+				'文庫',
+				'単行本',
+				'新書',
+				'単行本（ソフトカバー）',
+				'Kindle版 (電子書籍)',
+				'Kindle版',
+			];
+
+			const table = queryOnlyOneElementBySelector(dom, '.s-main-slot');
+			const items = Array.from(table.querySelectorAll('.s-asin'));
+
+			const isUnlikeItem = (elem) => {
+				const titleLine = queryOnlyOneElementBySelector(elem, 'h2').innerText;
+				console.debug(titleLine);
+				const label = (() => { // 文庫とかの「レーベル」
+					const matching = titleLine.match(/^.+\(([^())]+)\)$/);
+					if (! matching) return '';
+					let s = matching[1];
+					s = s.replace(/ \d+$/, '');
+					s = s.replace(/ ガ. \d+-\d+$/, ''); // for 「ガガガ文庫」
+					s = s.replace(/ [あ-ん] \d+-\d+-\d+$/, ''); // for 「HJ文庫」
+					s = s.replace(/ [あ-ん] \d+-\d+$/, ''); // for 「コスミック文庫」「双葉文庫」
+					return s;
+				})();
+				console.debug(label);
+				if (unlikeLabels.includes(label)) return true;
+				const styles = Array.from(elem.querySelectorAll('.a-section > .a-row a.a-text-bold')).map(e => e.innerText);
+				console.debug(styles);
+				if (styles.length === 0) throw new Error('Unexpected HTML structure (book style is not found)');
+				if (! styles.some(x => preferredStyles.includes(x))) return true; // if intersection of two arrays is empty
+				const isSponsored = elem.querySelectorAll('.s-sponsored-label-text').length !== 0;
+				if (isSponsored) return true;
+				return false;
+			};
+
+			const targets = items.filter(item => isUnlikeItem(item));
+			targets.forEach(item => {
+				item.style.display = 'none';
+			});
+
+			if (true) {
+				const elem = queryOnlyOneElementBySelector(dom, 'h1.s-desktop-toolbar .a-section > span');
+				const mark = '*'.repeat(32);
+				elem.innerHTML = elem.innerHTML + ` <span style="color: red">${mark} ${targets.length} items are pruned ${mark}</span>`;
+				throw 'Complated!'; // skip default process
+			}
+
+			return true;
+		},
+		function(url, dom) {
 			// 東京新聞 (2011/May/19)
 			if (! url.match(/^https?:\/\/www\.tokyo-np\.co\.jp\/[a-z]\/article\/\d+\.html$/)) return false;
 			var target = getElementsByClassName(dom, 'News-textarea')[0];
@@ -1514,10 +1610,6 @@
 
 	//========================================================================
 
-	removeEventListenerAll(document.body);
-
-	removeGarbageRecursively(document.body);
-
 	var is_completed = (function() {
 		if (window['ppw'] && ppw['bookmarklet']) {	// PrintWhatYouLike.com
 			return undefined;
@@ -1536,6 +1628,10 @@
 		}
 		return false;
 	})();
+
+	removeEventListenerAll(document.body);
+
+	removeGarbageRecursively(document.body);
 
 	removeHiddenElementRecursively(document.body)
 	removeAll(document.getElementsByTagName('script'));
