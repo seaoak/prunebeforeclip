@@ -1094,7 +1094,7 @@
 				console.debug(titleLine);
 				if (regexpForTitleLine.some(re => re.test(titleLine))) return true;
 				const label = (() => { // 文庫とかの「レーベル」
-					const matching = titleLine.match(/\(([^())]+)\)$/);
+					const matching = titleLine.match(/\(([^()]+)\)$/) || titleLine.match(/（([^（）]+)）$/);
 					if (! matching) return '';
 					const original = matching[1];
 					for (const re of regexpForLabel) {
