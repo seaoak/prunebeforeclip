@@ -1078,8 +1078,10 @@
 			const items = Array.from(table.querySelectorAll('.s-asin'));
 
 			const isUnlikeItem = (elem) => {
-				const titleLine = queryOnlyOneElementBySelector(elem, 'h2').innerText;
+				const titleLine = queryOnlyOneElementBySelector(elem, 'h2').innerText.trim();
 				console.debug(titleLine);
+				if (titleLine.match(/[\s　]\d+-\d+巻セット$/)) return true; // セット販売品
+				if (titleLine.match(/[\s　]全\d+[冊巻]セット$/)) return true; // セット販売品
 				const label = (() => { // 文庫とかの「レーベル」
 					const matching = titleLine.match(/^.+\(([^())]+)\)$/);
 					if (! matching) return '';
