@@ -1048,9 +1048,22 @@
 				'フェアリーキス ピンク',
 				'ケータイ小説文庫',
 				'Mノベルスf',
+				'オパール文庫',
+
+				// for juniors
+				'講談社青い鳥文庫',
 
 				// for 国文学（？）
 				'風々齋文庫',
+				'文春学藝ライブラリー',
+
+				// for 実用書
+				'日経ビジネス人文庫',
+				'草思社文庫',
+				'王様文庫',
+
+				// for others
+				'SANNO DIARY',
 			];
 			const preferredStyles = [ // メディアの種類（主に「Audible版」をはじきたい）
 				'文庫',
@@ -1073,8 +1086,8 @@
 					let s = matching[1];
 					s = s.replace(/ \d+$/, '');
 					s = s.replace(/ ガ. \d+-\d+$/, ''); // for 「ガガガ文庫」
-					s = s.replace(/ [あ-ん] \d+-\d+-\d+$/, ''); // for 「HJ文庫」
-					s = s.replace(/ [あ-ん] \d+-\d+$/, ''); // for 「コスミック文庫」「双葉文庫」
+					s = s.replace(/ [あ-んＡ-ＺA-Z] \d+-\d+-\d+$/, '');
+					s = s.replace(/ [あ-んＡ-ＺA-Z] \d+-\d+$/, '');
 					return s;
 				})();
 				console.debug(label);
