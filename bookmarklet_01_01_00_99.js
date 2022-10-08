@@ -1073,6 +1073,18 @@
 				'Kindle版 (電子書籍)',
 				'Kindle版',
 			];
+			const regexpForTitleLine = [
+				/[\s　]\d+-\d+巻セット$/, // セット販売
+				/[\s　]全\d+[冊巻]セット$/, // セット販売
+			];
+			const regexpForLabel = [
+				// ※複雑なものを先に書くこと
+				/ ガ. \d+-\d+$/, // for 「ガガガ文庫」
+				/ [あ-んＡ-ＺA-Z] \d+-\d+-\d+$/,
+				/ [あ-んＡ-ＺA-Z] \d+-\d+$/,
+				/ [A-Z][A-Z] \d+$/,
+				/ \d+$/,
+			];
 
 			const table = queryOnlyOneElementBySelector(dom, '.s-main-slot');
 			const items = Array.from(table.querySelectorAll('.s-asin'));
@@ -1080,17 +1092,16 @@
 			const isUnlikeItem = (elem) => {
 				const titleLine = queryOnlyOneElementBySelector(elem, 'h2').innerText.trim();
 				console.debug(titleLine);
-				if (titleLine.match(/[\s　]\d+-\d+巻セット$/)) return true; // セット販売品
-				if (titleLine.match(/[\s　]全\d+[冊巻]セット$/)) return true; // セット販売品
+				if (regexpForTitleLine.some(re => re.test(titleLine))) return true;
 				const label = (() => { // 文庫とかの「レーベル」
-					const matching = titleLine.match(/^.+\(([^())]+)\)$/);
+					const matching = titleLine.match(/\(([^())]+)\)$/);
 					if (! matching) return '';
-					let s = matching[1];
-					s = s.replace(/ \d+$/, '');
-					s = s.replace(/ ガ. \d+-\d+$/, ''); // for 「ガガガ文庫」
-					s = s.replace(/ [あ-んＡ-ＺA-Z] \d+-\d+-\d+$/, '');
-					s = s.replace(/ [あ-んＡ-ＺA-Z] \d+-\d+$/, '');
-					return s;
+					const original = matching[1];
+					for (const re of regexpForLabel) {
+						const mayBeModified = original.replace(re, '');
+						if (mayBeModified.length !== original.length) return mayBeModified; // exit at first matching
+					}
+					return original;
 				})();
 				console.debug(label);
 				if (unlikeLabels.includes(label)) return true;
