@@ -1204,9 +1204,14 @@
 			return true;
 		},
 		function(url, dom) {
-			// 時事ドットコム (2017/Mar/10)
+			// 時事ドットコム (2022/Oct/17)
+			// 「有料記事」全画面バナーを除去する
 			if (! url.match(/^https?:\/\/www\.jiji\.com\/jc\/[^/]+$/)) return false;
-			removeAll(getElementsByClassName(dom, 'ArticleTextTab'));
+			[
+				...dom.querySelectorAll('.tp-modal'),
+				...dom.querySelectorAll('.tp-backdrop'),
+			].forEach(elem => elem && (elem.style = 'display:none'));
+			dom.body.classList.remove('tp-modal-open');
 			return true;
 		},
 		function(url, dom) {
