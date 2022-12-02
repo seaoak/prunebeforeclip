@@ -1109,6 +1109,9 @@
 				'一般書籍',
 				'SANNO DIARY',
 			];
+			const unlikeStyles = [ // 排除したいメディアの種類（これがあったら一発アウト）
+				'オンデマンド (ペーパーバック)',
+			];
 			const preferredStyles = [ // メディアの種類（主に「Audible版」をはじきたい）
 				'文庫',
 				'単行本',
@@ -1161,6 +1164,7 @@
 				const styles = Array.from(elem.querySelectorAll('.a-section > .a-row a.a-text-bold')).map(e => e.innerText);
 				console.debug(styles);
 				if (styles.length === 0) throw new Error('Unexpected HTML structure (book style is not found)');
+				if (styles.some(x => unlikeStyles.includes(x))) return true; // if intersection of two arrays is not empty
 				if (! styles.some(x => preferredStyles.includes(x))) return true; // if intersection of two arrays is empty
 				const isSponsored = elem.querySelectorAll('.s-sponsored-label-text').length !== 0;
 				if (isSponsored) return true;
